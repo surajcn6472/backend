@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const userController = require("../controllers/userController");
+const projectController = require("../controllers/projectController");
 
 // middleware that is specific to this router
 const timeLog = (req, res, next) => {
@@ -13,10 +14,10 @@ router.get("/profile", userController.getProfile);
 router.put("/profile", userController.updateProfile);
 
 // user project routes
-router.get("/projects", userController.getProjects);
-router.post("/projects", userController.createProject);
-router.get("/projects/:project_id", userController.showProject);
-router.put("/projects/:project_id/update", userController.updateProject);
-router.delete("/projects/:project_id/delete", userController.deleteProject);
+router.get("/projects", projectController.getProjects);
+router.post("/projects", projectController.createProject);
+router.get("/projects/:project_id", projectController.showProject);
+router.put("/projects/:project_id/update", projectController.updateProject);
+router.delete("/projects/:project_id/delete", projectController.deleteProject);
 
 module.exports = router;
