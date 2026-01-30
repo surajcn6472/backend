@@ -1,6 +1,6 @@
-const Project = require("../database/models/projects");
+const Project = require("../database/models/project");
 var moment = require("moment");
-const User = require("../database/models/users");
+const User = require("../database/models/user");
 
 exports.getProjects = async (req, res) => {
   const projects = await Project.find().exec();

@@ -1,5 +1,4 @@
-const Project = require("../models/projects");
-const User = require("../models/users");
+const { User, Project } = require("../").models;
 
 const seed = async () => {
   const firstUser = await User.findOne();

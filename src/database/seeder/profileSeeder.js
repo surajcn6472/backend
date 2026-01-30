@@ -1,6 +1,4 @@
-const Profile = require("../models/profiles");
-const Department = require("../models/departments");
-const User = require("../models/users");
+const { User, Profile, Department } = require("../").models;
 
 const seed = async () => {
   const department = await Department.findOne();
@@ -22,7 +20,7 @@ const seed = async () => {
       department_id: department._id,
       user_id: firstUser._id,
       bio: "Backend developer with strong Node.js experience.",
-    }
+    },
   ];
 
   await Profile.deleteMany({});

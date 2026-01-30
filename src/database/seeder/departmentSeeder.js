@@ -1,4 +1,5 @@
-const Department = require("../models/departments");
+const { Department } = require("../").models;
+
 
 const departments = [
   { name: "IT" },

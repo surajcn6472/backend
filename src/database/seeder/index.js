@@ -3,6 +3,7 @@ const skillSeeder = require("./skillSeeder");
 const userSeeder = require("./userSeeder");
 const profileSeeder = require("./profileSeeder");
 const projectSeeder = require("./projectSeeder");
+const userSkillSeeder = require("./userSkillSeeder");
 const mongoose = require("mongoose");
 require("dotenv").config();
 const executeSeeder = async () => {
@@ -15,6 +16,7 @@ const executeSeeder = async () => {
       await userSeeder();
       await profileSeeder();
       await projectSeeder();
+      await userSkillSeeder();
       console.log("Seeding completed...");
       process.exit(0);
     })

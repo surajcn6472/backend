@@ -3,6 +3,9 @@ const router = express.Router();
 const userController = require("../controllers/userController");
 const projectController = require("../controllers/projectController");
 
+// const { authenticationMiddleware } = require("../middlewares");
+// router.use(authenticationMiddleware);
+
 // middleware that is specific to this router
 const timeLog = (req, res, next) => {
   console.log("User Route Trigger Time: : ", Date.now());

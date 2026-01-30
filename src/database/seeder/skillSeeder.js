@@ -1,4 +1,5 @@
-const Skill = require("../models/skills");
+const { Skill } = require("../").models;
+
 
 const skills = [
   { name: "JavaScript" },

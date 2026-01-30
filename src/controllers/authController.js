@@ -1,6 +1,6 @@
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
-const User = require("../database/models/users");
+const User = require("../database/models/user");
 
 exports.login = (req, res) => {
   User.findOne({

@@ -1,4 +1,5 @@
-const User = require("../models/users");
+const { User } = require("../").models;
+
 const bcrypt = require("bcrypt");
 
 const seed = async () => {
@@ -7,7 +8,10 @@ const seed = async () => {
     {
       name: "Suraj Kumar",
       email: "surajcn6472@gmail.com",
-      password: await bcrypt.hash("password", parseInt(process.env.BCRYPT_SALT_ROUNDS)),
+      password: await bcrypt.hash(
+        "password",
+        parseInt(process.env.BCRYPT_SALT_ROUNDS),
+      ),
     },
   ]);
   console.log("User Seeding completed successfully");
