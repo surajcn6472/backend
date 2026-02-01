@@ -9,7 +9,7 @@ exports.login = (req, res) => {
     .exec()
     .then((user) => {
       if (!user) {
-        return res.status(404).send({ message: "User Not found." });
+        return res.status(401).send({ message: "Invalid credentials." });
       }
 
       var passwordIsValid = bcrypt.compareSync(
@@ -20,7 +20,7 @@ exports.login = (req, res) => {
       if (!passwordIsValid) {
         return res.status(401).send({
           accessToken: null,
-          message: "Invalid Password!",
+          message: "Invalid credentials.",
         });
       }
 
@@ -50,7 +50,7 @@ exports.register = async (req, res) => {
       email: req.body.email,
       password: bcrypt.hashSync(
         req.body.password,
-        parseInt(process.env.BCRYPT_SALT_ROUNDS)
+        parseInt(process.env.BCRYPT_SALT_ROUNDS),
       ),
     });
 
@@ -60,18 +60,10 @@ exports.register = async (req, res) => {
       status: "success",
       msg: "Signup successful",
     });
-
   } catch (err) {
-    if (err.code === 11000) {
-      return res.status(409).send({
-        status: "failure",
-        msg: "Email already exists",
-      });
-    }
     res.status(500).send({
       status: "error",
       msg: err.message,
     });
   }
 };
-

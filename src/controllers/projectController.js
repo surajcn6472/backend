@@ -18,7 +18,7 @@ exports.getProjects = async (req, res) => {
 };
 
 exports.createProject = async (req, res) => {
-  const user = await User.findOne({ _id: req.body.user_id });
+  const user = await User.findOne({ _id: req.user.id });
   const newProject = new Project({
     user_id: user._id,
     name: req.body.name,
@@ -29,6 +29,7 @@ exports.createProject = async (req, res) => {
   });
 
   await newProject.save();
+  
   res.status(201).send({
     status: "success",
     message: "Project created successfully",
@@ -37,6 +38,14 @@ exports.createProject = async (req, res) => {
 
 exports.showProject = async (req, res) => {
   const project = await Project.findById(req.params.project_id);
+
+  if (!project) {
+    return res.status(404).send({
+      status: "error",
+      message: "Project not found",
+    });
+  }
+
   res.status(200).send({
     status: "success",
     data: {
@@ -50,8 +59,8 @@ exports.showProject = async (req, res) => {
   });
 };
 
-exports.updateProject = (req, res) => {
-  Project.findByIdAndUpdate(
+exports.updateProject = async (req, res) => {
+  const project = await Project.findByIdAndUpdate(
     req.params.project_id,
     {
       name: req.body.name,
@@ -61,19 +70,25 @@ exports.updateProject = (req, res) => {
       status: req.body.status,
     },
     { new: true }, // when true -> it returns the modified document rather than the original
-  ).then((updatedProjects) => {
-    res.status(200).send({
-      status: "success",
-      message: "Project updated successfully",
-      data: {
-        id: updatedProjects._id,
-        name: updatedProjects.name,
-        startDate: moment(updatedProjects.startDate).format("DD MMM, YYYY"),
-        endDate: moment(updatedProjects.endDate).format("DD MMM, YYYY"),
-        rate: updatedProjects.rate,
-        status: updatedProjects.status,
-      }
+  );
+  if (!project) {
+    return res.status(404).send({
+      status: "error",
+      message: "Project not found",
     });
+  }
+
+  res.status(200).send({
+    status: "success",
+    message: "Project updated successfully",
+    data: {
+      id: project._id,
+      name: project.name,
+      startDate: moment(project.startDate).format("DD MMM, YYYY"),
+      endDate: moment(project.endDate).format("DD MMM, YYYY"),
+      rate: project.rate,
+      status: project.status,
+    },
   });
 };
 

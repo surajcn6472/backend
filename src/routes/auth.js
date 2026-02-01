@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const authController = require("../controllers/authController");
+const { registerValidation, validationErr, loginValidation } = require("../validators");
 
 // middleware that is specific to this router
 const timeLog = (req, res, next) => {
@@ -9,7 +10,7 @@ const timeLog = (req, res, next) => {
 };
 router.use(timeLog);
 
-router.post("/login", authController.login);
-router.post("/register", authController.register);
+router.post("/login", loginValidation, validationErr, authController.login);
+router.post("/register", registerValidation, validationErr, authController.register);
 
 module.exports = router;

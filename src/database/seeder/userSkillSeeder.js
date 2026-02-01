@@ -18,10 +18,7 @@ const seed = async () => {
 
   await UserSkill.deleteMany({ user_id: user._id });
   await UserSkill.insertMany(userSkills);
-  const data = await UserSkill.find({ user_id: user._id });
 
-
-  console.log(data);
   console.log("User Skill Seeding completed successfully");
 };
 
