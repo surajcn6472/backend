@@ -1,2 +1,4 @@
 const helpers = require("./helpers");
-module.exports = { ...helpers };
+const { multerUpload } = require("./multer");
+
+module.exports = { ...helpers, multerUpload };

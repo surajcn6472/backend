@@ -1,6 +1,7 @@
 const { User, Profile, UserSkill } = require("../database").models;
 const { mongoose } = require("../database");
-
+const fs = require("fs");
+const path = require("path");
 exports.getProfile = async (req, res) => {
   try {
     const userId = req.user.id;
@@ -115,17 +116,34 @@ exports.updateProfile = async (req, res) => {
     );
     if (!user) throw new Error("User not found");
 
-    const profile = await Profile.findOneAndUpdate(
-      { user_id: userId },
-      {
-        department_id,
-        gender,
-        bio,
-      },
-      { new: true },
-    );
+    const existingProfile = await Profile.findOne({ user_id: userId });
+    if (!existingProfile) throw new Error("Profile not found");
 
-    if (!profile) throw new Error("Profile not found");
+    const profileData = {
+      department_id,
+      gender,
+      bio,
+    };
+
+    if (req.file) {
+      if (existingProfile.image) {
+        const oldImagePath = path.join(
+          __dirname,
+          "../..",
+          existingProfile.image,
+        );
+
+        if (fs.existsSync(oldImagePath)) {
+          fs.unlinkSync(oldImagePath);
+        }
+      }
+
+      profileData.image = req.file.path;
+    }
+
+    await Profile.findOneAndUpdate({ user_id: userId }, profileData, {
+      new: true,
+    });
 
     await UserSkill.deleteMany({ user_id: userId });
 

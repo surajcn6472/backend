@@ -2,8 +2,13 @@ const express = require("express");
 const router = express.Router();
 const userController = require("../controllers/userController");
 const projectController = require("../controllers/projectController");
-const { createProjectValidation, updateProfileValidation, updateProjectValidation, validationErr } = require("../validators");
-
+const {
+  createProjectValidation,
+  updateProfileValidation,
+  updateProjectValidation,
+  validationErr,
+} = require("../validators");
+const { multerUpload } = require("../lib");
 // const { authenticationMiddleware } = require("../middlewares");
 // router.use(authenticationMiddleware);
 
@@ -15,13 +20,29 @@ const timeLog = (req, res, next) => {
 router.use(timeLog);
 
 router.get("/profile", userController.getProfile);
-router.put("/profile", updateProfileValidation, validationErr, userController.updateProfile);
+router.put(
+  "/profile",
+  multerUpload.single("image"),
+  updateProfileValidation,
+  validationErr,
+  userController.updateProfile,
+);
 
 // user project routes
 router.get("/projects", projectController.getProjects);
-router.post("/projects", createProjectValidation, validationErr, projectController.createProject);
+router.post(
+  "/projects",
+  createProjectValidation,
+  validationErr,
+  projectController.createProject,
+);
 router.get("/projects/:project_id", projectController.showProject);
-router.put("/projects/:project_id/update", updateProjectValidation, validationErr, projectController.updateProject);
+router.put(
+  "/projects/:project_id/update",
+  updateProjectValidation,
+  validationErr,
+  projectController.updateProject,
+);
 router.delete("/projects/:project_id/delete", projectController.deleteProject);
 
 module.exports = router;
