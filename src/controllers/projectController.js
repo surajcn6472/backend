@@ -3,7 +3,35 @@ var moment = require("moment");
 const User = require("../database/models/user");
 
 exports.getProjects = async (req, res) => {
-  const projects = await Project.find().exec();
+  const {
+    sortBy = "name",
+    order = "asc",
+    status = null,
+    search = null,
+  } = req.query;
+
+  const allowedSortFields = ["name", "rate"];
+  const sortField = allowedSortFields.includes(sortBy) ? sortBy : "name";
+
+  const sortOrder = order === "desc" ? -1 : 1;
+
+  // build filter
+  const filter = {};
+  if (status) {
+    filter.status = status;
+  }
+
+  if (search) {
+    filter.name = {
+      $regex: search,
+      $options: "i", // case-insensitive
+    };
+  }
+
+  const projects = await Project.find({...filter, user_id: req.user.id})
+    .sort({ [sortField]: sortOrder })
+    .exec();
+
   res.status(200).send({
     status: "success",
     data: projects.map((project) => ({
@@ -29,7 +57,7 @@ exports.createProject = async (req, res) => {
   });
 
   await newProject.save();
-  
+
   res.status(201).send({
     status: "success",
     message: "Project created successfully",
@@ -102,7 +130,35 @@ exports.deleteProject = async (req, res) => {
 };
 
 exports.getAllProjects = async (req, res) => {
-  const projects = await Project.find().exec();
+  const {
+    sortBy = "name",
+    order = "asc",
+    status = null,
+    search = null,
+  } = req.query;
+
+  const allowedSortFields = ["name", "rate"];
+  const sortField = allowedSortFields.includes(sortBy) ? sortBy : "name";
+
+  const sortOrder = order === "desc" ? -1 : 1;
+
+  // build filter
+  const filter = {};
+  if (status) {
+    filter.status = status;
+  }
+
+  if (search) {
+    filter.name = {
+      $regex: search,
+      $options: "i", // case-insensitive
+    };
+  }
+
+  const projects = await Project.find(filter)
+    .sort({ [sortField]: sortOrder })
+    .exec();
+
   res.send(
     projects.map((project) => ({
       id: project._id,
