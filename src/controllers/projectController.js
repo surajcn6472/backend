@@ -60,7 +60,7 @@ exports.createProject = async (req, res) => {
 
   res.status(201).send({
     status: "success",
-    message: "Project created successfully",
+    msg: "Project created successfully",
   });
 };
 
@@ -70,7 +70,7 @@ exports.showProject = async (req, res) => {
   if (!project) {
     return res.status(404).send({
       status: "error",
-      message: "Project not found",
+      msg: "Project not found",
     });
   }
 
@@ -102,13 +102,13 @@ exports.updateProject = async (req, res) => {
   if (!project) {
     return res.status(404).send({
       status: "error",
-      message: "Project not found",
+      msg: "Project not found",
     });
   }
 
   res.status(200).send({
     status: "success",
-    message: "Project updated successfully",
+    msg: "Project updated successfully",
     data: {
       id: project._id,
       name: project.name,
@@ -124,7 +124,7 @@ exports.deleteProject = async (req, res) => {
   await Project.findByIdAndDelete(req.params.project_id).then(() => {
     res.status(200).send({
       status: "success",
-      message: "Project deleted successfully",
+      msg: "Project deleted successfully",
     });
   });
 };

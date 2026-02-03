@@ -10,7 +10,7 @@ module.exports = function guestOnly(req, res, next) {
 
   try {
     jwt.verify(token, process.env.JWT_SECRET);
-    return res.status(403).json({ message: "Already authenticated" });
+    return res.status(403).json({ msg: "Already authenticated" });
   } catch (err) {
     return next();
   }

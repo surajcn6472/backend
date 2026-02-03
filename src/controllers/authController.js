@@ -2,14 +2,43 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const User = require("../database/models/user");
 
+exports.me = (req, res) => {
+  User.findOne({
+    _id: req.user.id,
+  })
+    .exec()
+    .then((user) => {
+      if (!user) {
+        return res.status(404).send({
+          status: "error",
+          msg: "User not found.",
+        });
+      }
+
+      res.status(200).send({
+        status: "success",
+        msg: "User fetched successfully.",
+        data: {
+          id: user._id,
+          name: user.name,
+          email: user.email,
+        },
+      });
+    });
+};
+
 exports.login = (req, res) => {
+  const INVALID_CREDENTIALS_RESPONSE = {
+    status: "error",
+    msg: "Invalid credentials.",
+  };
   User.findOne({
     email: req.body.email,
   })
     .exec()
     .then((user) => {
       if (!user) {
-        return res.status(401).send({ message: "Invalid credentials." });
+        return res.status(401).send(INVALID_CREDENTIALS_RESPONSE);
       }
 
       var passwordIsValid = bcrypt.compareSync(
@@ -18,10 +47,7 @@ exports.login = (req, res) => {
       );
 
       if (!passwordIsValid) {
-        return res.status(401).send({
-          accessToken: null,
-          message: "Invalid credentials.",
-        });
+        return res.status(401).send(INVALID_CREDENTIALS_RESPONSE);
       }
 
       const token = jwt.sign(
@@ -35,10 +61,14 @@ exports.login = (req, res) => {
       );
 
       res.status(200).send({
-        id: user._id,
-        name: user.name,
-        email: user.email,
-        token: token,
+        status: "success",
+        msg: "Login successful",
+        data: {
+          id: user._id,
+          name: user.name,
+          email: user.email,
+          token: token,
+        },
       });
     });
 };

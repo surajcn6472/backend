@@ -66,7 +66,7 @@ exports.getProfile = async (req, res) => {
     ]);
 
     if (!user) {
-      return res.status(404).json({ message: "User not found" });
+      return res.status(404).json({ msg: "User not found" });
     }
 
     const userData = user[0];
@@ -100,7 +100,7 @@ exports.getProfile = async (req, res) => {
   } catch (err) {
     return res
       .status(500)
-      .json({ message: "Server error", error: err.message });
+      .json({ msg: "Server error", error: err.message });
   }
 };
 
@@ -157,7 +157,7 @@ exports.updateProfile = async (req, res) => {
 
     return res.json({
       status: "success",
-      message: "Profile updated",
+      msg: "Profile updated",
     });
   } catch (err) {
     return res.status(500).json({

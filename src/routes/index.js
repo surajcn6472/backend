@@ -3,13 +3,13 @@ const router = express.Router();
 const authRouter = require("./auth");
 const userRouter = require("./user");
 const publicRouter = require("./public");
-const { authenticationMiddleware, guestMiddleware } = require("../middlewares");
+const { authenticationMiddleware } = require("../middlewares");
 
 router.get("/", (req, res) => {
-  res.json({ message: "Welcome to project management system." });
+  res.json({ msg: "Welcome to project management system." });
 });
 
-router.use("/auth", guestMiddleware, authRouter);
+router.use("/auth", authRouter);
 router.use("/user", authenticationMiddleware, userRouter);
 router.use("/", publicRouter);
 
