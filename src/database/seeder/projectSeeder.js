@@ -7,32 +7,16 @@ const seed = async () => {
     throw new Error("No users found in database. Seed users first.");
   }
 
-  const projects = [
-    {
-      user_id: firstUser._id,
-      name: "Website Redesign",
-      startDate: new Date("2025-01-10"),
-      endDate: new Date("2025-03-15"),
-      rate: 5000,
-      status: "in progress",
-    },
-    {
-      user_id: firstUser._id,
-      name: "Mobile App Development",
-      startDate: new Date("2025-02-01"),
-      endDate: null,
-      rate: 8000,
-      status: "pending",
-    },
-    {
-      user_id: firstUser._id,
-      name: "Database Migration",
-      startDate: new Date("2024-11-05"),
-      endDate: new Date("2025-01-20"),
-      rate: 3000,
-      status: "finished",
-    },
-  ];
+  const statuses = ["pending", "in progress", "finished"];
+
+  const projects = Array.from({ length: 100 }, (_, i) => ({
+    user_id: firstUser._id,
+    name: `Project ${i + 1}`,
+    startDate: new Date(2025, 0, (i % 28) + 1), // Jan dates
+    endDate: i % 3 === 0 ? null : new Date(2025, 2, (i % 28) + 1),
+    rate: 1000 + (i % 10) * 500,
+    status: statuses[i % statuses.length],
+  }));
 
   await Project.deleteMany({});
   await Project.insertMany(projects);
