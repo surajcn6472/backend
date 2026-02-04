@@ -1,0 +1,526 @@
+{
+	"info": {
+		"_postman_id": "3c8a4175-75b7-4d98-8fd5-af71c128344f",
+		"name": "project management system",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "51862379",
+		"_collection_link": "https://surajcn6472-f1b7d42b-7173601.postman.co/workspace/SurajCN's-Team's-Workspace~c93c9817-c7d8-4528-8f2d-b8341343d200/collection/51862379-3c8a4175-75b7-4d98-8fd5-af71c128344f?action=share&source=collection_link&creator=51862379"
+	},
+	"item": [
+		{
+			"name": "user",
+			"item": [
+				{
+					"name": "projects",
+					"item": [
+						{
+							"name": "projects",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{ACCESS_TOKEN}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{BASE_URL}}/user/projects?sortBy=name&order=asc",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"user",
+										"projects"
+									],
+									"query": [
+										{
+											"key": "sortBy",
+											"value": "name"
+										},
+										{
+											"key": "order",
+											"value": "asc"
+										},
+										{
+											"key": "status",
+											"value": "pending",
+											"disabled": true
+										},
+										{
+											"key": "search",
+											"value": "mobile",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "show project",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{ACCESS_TOKEN}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{BASE_URL}}/user/projects/697c59ccc80f1a18578ce730",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"user",
+										"projects",
+										"697c59ccc80f1a18578ce730"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "create projects",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{ACCESS_TOKEN}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"test project\",\n    \"startDate\": \"2025-01-10\",\n    \"endDate\": \"2025-02-10\",\n    \"rate\": \"500\",\n    \"status\": \"pending\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BASE_URL}}/user/projects",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"user",
+										"projects"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "update projects",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{ACCESS_TOKEN}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"test project update\",\n    \"startDate\": \"2025-01-10\",\n    \"endDate\": \"2025-02-10\",\n    \"rate\": \"800\",\n    \"status\": \"pending\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BASE_URL}}/user/projects/697c59ccc80f1a18578ce732/update",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"user",
+										"projects",
+										"697c59ccc80f1a18578ce732",
+										"update"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete projects",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{ACCESS_TOKEN}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{BASE_URL}}/user/projects/697c59ccc80f1a18578ce730/delete",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"user",
+										"projects",
+										"697c59ccc80f1a18578ce730",
+										"delete"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "profile",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{ACCESS_TOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}/user/profile",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"user",
+								"profile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update profile",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{ACCESS_TOKEN}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "Suraj",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "surajcn6472@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "department_id",
+									"value": "697c59ccc80f1a18578ce718",
+									"type": "text"
+								},
+								{
+									"key": "gender",
+									"value": "male",
+									"type": "text"
+								},
+								{
+									"key": "bio",
+									"value": "some text",
+									"type": "text"
+								},
+								{
+									"key": "skills[]",
+									"value": " 697c59ccc80f1a18578ce720",
+									"type": "text"
+								},
+								{
+									"key": "skills[]",
+									"value": " 697c59ccc80f1a18578ce724",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/home/play/Pictures/benjamin-voros.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/user/profile",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"user",
+								"profile"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "auth",
+			"item": [
+				{
+					"name": "login",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"if (pm.response.code == 200) {",
+									"    pm.environment.set(\"ACCESS_TOKEN\", \"Bearer \"+pm.response.json()?.data?.token)",
+									"}",
+									"// console.log(pm.environment.get(\"ACCESS_TOKEN\"))"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"surajcn6472@gmail.com\",\n    \"password\": \"password\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/auth/login",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "me",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{ACCESS_TOKEN}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"surajcn6472@gmail.com\",\n    \"password\": \"password\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/auth/me",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"auth",
+								"me"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Rohan\",\n    \"email\": \"rohancn647w2@gmail.com\",\n    \"password\": \"password\",\n    \"confirm_password\": \"password\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/auth/register",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "master",
+			"item": [
+				{
+					"name": "skills",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{ACCESS_TOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}/skills",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"skills"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "departments",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{ACCESS_TOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}/departments",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"departments"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "setup test",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BASE_URL}}",
+					"host": [
+						"{{BASE_URL}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "projects",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BASE_URL}}/projects?sortBy=name&order=asc&status=pending&search=mobile",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"projects"
+					],
+					"query": [
+						{
+							"key": "sortBy",
+							"value": "name",
+							"description": "name,rate"
+						},
+						{
+							"key": "order",
+							"value": "asc",
+							"description": "asc,desc"
+						},
+						{
+							"key": "status",
+							"value": "pending",
+							"description": "pending,finished,in-progress"
+						},
+						{
+							"key": "search",
+							"value": "mobile"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
