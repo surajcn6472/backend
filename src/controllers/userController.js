@@ -98,9 +98,7 @@ exports.getProfile = async (req, res) => {
       },
     });
   } catch (err) {
-    return res
-      .status(500)
-      .json({ msg: "Server error", error: err.message });
+    return res.status(500).json({ msg: "Server error", error: err.message });
   }
 };
 
@@ -117,7 +115,6 @@ exports.updateProfile = async (req, res) => {
     if (!user) throw new Error("User not found");
 
     const existingProfile = await Profile.findOne({ user_id: userId });
-    if (!existingProfile) throw new Error("Profile not found");
 
     const profileData = {
       department_id,
@@ -126,7 +123,7 @@ exports.updateProfile = async (req, res) => {
     };
 
     if (req.file) {
-      if (existingProfile.image) {
+      if (existingProfile?.image) {
         const oldImagePath = path.join(
           __dirname,
           "../..",
@@ -143,6 +140,8 @@ exports.updateProfile = async (req, res) => {
 
     await Profile.findOneAndUpdate({ user_id: userId }, profileData, {
       new: true,
+      upsert: true,
+      runValidators: true,
     });
 
     await UserSkill.deleteMany({ user_id: userId });

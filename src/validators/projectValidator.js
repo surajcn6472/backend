@@ -31,7 +31,7 @@ exports.createProjectValidation = [
   body("status")
     .notEmpty()
     .withMessage("Status is required")
-    .isIn(["pending", "active", "completed"])
+    .isIn(["pending", "in progress", "finished"])
     .withMessage("Invalid project status"),
 ];
 
@@ -71,6 +71,6 @@ exports.updateProjectValidation = [
 
   body("status")
     .optional()
-    .isIn(["pending", "active", "completed"])
+    .isIn(["pending", "in progress", "finished"])
     .withMessage("Invalid project status"),
 ];
