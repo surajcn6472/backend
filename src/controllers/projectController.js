@@ -20,7 +20,7 @@ exports.getProjects = async (req, res) => {
   const sortOrder = order === "desc" ? -1 : 1;
 
   // build filter
-  const filter = {};
+  const filter = {user_id: req.user.id};
   if (status) {
     filter.status = status;
   }
@@ -33,7 +33,7 @@ exports.getProjects = async (req, res) => {
   }
   const total = await Project.countDocuments(filter);
 
-  const projects = await Project.find({...filter, user_id: req.user.id})
+  const projects = await Project.find(filter)
     .populate({
       path: "user",
       select: "name email",
