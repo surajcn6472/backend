@@ -1,4 +1,6 @@
-const { User, UserSkill, Skill } = require("../").models;
+import database from "../index.js";
+
+const { User, UserSkill, Skill } = models;
 
 const seed = async () => {
   const user = await User.findOne();
@@ -22,4 +24,4 @@ const seed = async () => {
   console.log("User Skill Seeding completed successfully");
 };
 
-module.exports = seed;
+export default seed;

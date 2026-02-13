@@ -1,6 +1,7 @@
-const { User } = require("../").models;
+import database from "../index.js";
+import bcrypt from "bcrypt";
 
-const bcrypt = require("bcrypt");
+const { User } = models;
 
 const seed = async () => {
   await User.deleteMany({});
@@ -17,4 +18,4 @@ const seed = async () => {
   console.log("User Seeding completed successfully");
 };
 
-module.exports = seed;
+export default seed;

@@ -1,8 +1,11 @@
-const { User, Profile, UserSkill } = require("../database").models;
-const { mongoose } = require("../database");
-const fs = require("fs");
-const path = require("path");
-exports.getProfile = async (req, res) => {
+import { models } from "../database/index.js";
+import fs from "fs";
+import path from "path";
+const { User, Profile, UserSkill } = models;
+import { mongoose } from "../database/index.js";
+import { __dirname } from "../lib/index.js";
+
+const getProfile = async (req, res) => {
   try {
     const userId = req.user.id;
 
@@ -102,7 +105,7 @@ exports.getProfile = async (req, res) => {
   }
 };
 
-exports.updateProfile = async (req, res) => {
+const updateProfile = async (req, res) => {
   try {
     const userId = req.user.id;
     const { name, email, department_id, gender, bio, skills = [] } = req.body;
@@ -165,3 +168,5 @@ exports.updateProfile = async (req, res) => {
     });
   }
 };
+
+export default { getProfile, updateProfile };

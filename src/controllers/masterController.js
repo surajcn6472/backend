@@ -1,13 +1,15 @@
-const { Department, Skill } = require("../database").models;
+import { models } from "../database/index.js";
 
-exports.skills = (req, res) => {
+const { Department, Skill } = models;
+
+const skills = (req, res) => {
   Skill.find()
     .exec()
     .then((skills) => {
       res.status(200).send({
         status: "success",
         msg: "Skills fetched successfully.",
-        data: skills.map(skill => ({
+        data: skills.map((skill) => ({
           id: skill._id,
           name: skill.name,
         })),
@@ -15,17 +17,19 @@ exports.skills = (req, res) => {
     });
 };
 
-exports.departments = (req, res) => {
+const departments = (req, res) => {
   Department.find()
     .exec()
     .then((departments) => {
       res.status(200).send({
         status: "success",
         msg: "Departments fetched successfully.",
-        data: departments.map(department => ({
+        data: departments.map((department) => ({
           id: department._id,
           name: department.name,
         })),
       });
     });
 };
+
+export default { skills, departments };

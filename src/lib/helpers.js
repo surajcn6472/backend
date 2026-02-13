@@ -1,3 +1,3 @@
-exports.check = () => {
+export default () => {
     console.log("Helper check function called");
 };

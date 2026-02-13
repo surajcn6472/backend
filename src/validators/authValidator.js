@@ -1,7 +1,8 @@
-const { body } = require("express-validator");
-const { User } = require("../database").models; // adjust path if needed
+import { body } from "express-validator";
+import { models } from "../database/index.js";
+const { User } = models;
 
-exports.registerValidation = [
+export const registerValidation = [
   body("name").trim().notEmpty().withMessage("Name is required"),
 
   body("email")
@@ -28,7 +29,7 @@ exports.registerValidation = [
   }),
 ];
 
-exports.loginValidation = [
+export const loginValidation = [
   body("email").trim().notEmpty().withMessage("Email is required"),
   body("password").trim().notEmpty().withMessage("Password is required"),
 ];

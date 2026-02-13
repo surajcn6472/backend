@@ -1,4 +1,6 @@
-const { User, Profile, Department } = require("../").models;
+import database from "../index.js";
+
+const { User, Profile, Department } = models;
 
 const seed = async () => {
   const department = await Department.findOne();
@@ -28,4 +30,4 @@ const seed = async () => {
   console.log("Profile Seeding completed successfully");
 };
 
-module.exports = seed;
+export default seed;

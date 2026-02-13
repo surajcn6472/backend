@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 const UserSkillSchema = new mongoose.Schema(
   {
@@ -21,4 +21,4 @@ UserSkillSchema.index({ user_id: 1, skill_id: 1 }, { unique: true });
 
 const UserSkill = mongoose.model("UserSkill", UserSkillSchema);
 
-module.exports = UserSkill;
+export default UserSkill;

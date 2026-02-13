@@ -1,7 +1,4 @@
-const { validationResult } = require("express-validator");
-const projectValidator = require("./projectValidator");
-const authValidator = require("./authValidator");
-const profileValidator = require("./profileValidator");
+import { validationResult } from "express-validator";
 
 const validationErr = (req, res, next) => {
   const errors = validationResult(req);
@@ -21,4 +18,7 @@ const validationErr = (req, res, next) => {
   next();
 };
 
-module.exports = { validationErr, ...authValidator, ...projectValidator, ...profileValidator };
+export { validationErr };
+export * from "./authValidator.js";
+export * from "./projectValidator.js";
+export * from "./profileValidator.js";

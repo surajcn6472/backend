@@ -1,10 +1,11 @@
-const departmentSeeder = require("./departmentSeeder");
-const skillSeeder = require("./skillSeeder");
-const userSeeder = require("./userSeeder");
-const profileSeeder = require("./profileSeeder");
-const projectSeeder = require("./projectSeeder");
-const userSkillSeeder = require("./userSkillSeeder");
-const mongoose = require("mongoose");
+import departmentSeeder from "./departmentSeeder.js";
+import skillSeeder from "./skillSeeder.js";
+import userSeeder from "./userSeeder.js";
+import profileSeeder from "./profileSeeder.js";
+import projectSeeder from "./projectSeeder.js";
+import userSkillSeeder from "./userSkillSeeder.js";
+import mongoose from "mongoose";
+
 require("dotenv").config();
 const executeSeeder = async () => {
   mongoose

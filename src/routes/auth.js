@@ -1,18 +1,19 @@
-const express = require("express");
-const router = express.Router();
-const authController = require("../controllers/authController");
-const {
+import express from "express";
+import authController from "../controllers/authController.js";
+import {
   registerValidation,
   validationErr,
   loginValidation,
-} = require("../validators");
-const { authenticationMiddleware } = require("../middlewares");
+} from "../validators/index.js";
+import { authenticationMiddleware } from "../middlewares/index.js";
 
-// middleware that is specific to this router
+const router = express.Router();
+
 const timeLog = (req, res, next) => {
   console.log("Auth Route Trigger Time: ", Date.now());
   next();
 };
+
 router.use(timeLog);
 
 router.post("/login", loginValidation, validationErr, authController.login);
@@ -20,8 +21,8 @@ router.post(
   "/register",
   registerValidation,
   validationErr,
-  authController.register,
+  authController.register
 );
 router.get("/me", authenticationMiddleware, authController.me);
 
-module.exports = router;
+export default router;

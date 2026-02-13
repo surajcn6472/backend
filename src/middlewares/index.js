@@ -1,7 +1,7 @@
-const authenticationMiddleware = require('./authentication');
-const guestMiddleware = require('./guest');
+import authenticationMiddleware from "./authentication.js";
+import guestMiddleware from "./guest.js";
 
-module.exports = {
+export {
   authenticationMiddleware,
   guestMiddleware,
 };

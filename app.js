@@ -1,13 +1,17 @@
-const express = require("express");
-const cors = require("cors");
-require("dotenv").config();
-const { mongoose } = require("./src/database");
+import express from "express";
+import cors from "cors";
+import dotenv from "dotenv";
+import { mongoose } from "./src/database/index.js";
+
+import routes from "./src/routes/index.js";
+import path from "path";
+import { __filename, __dirname } from "./src/lib/index.js";
+
+dotenv.config();
 const app = express();
-const routes = require("./src/routes");
-const path = require("path");
 
 // handlebars setup
-const { engine } = require("express-handlebars");
+import { engine } from "express-handlebars";
 app.engine(
   "hbs",
   engine({
@@ -37,7 +41,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use("/public", express.static(path.join(__dirname, "public")));
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
-app.use("/v1", routes);
+app.use("/", routes);
 
 // Connect to MongoDB and start the server
 mongoose

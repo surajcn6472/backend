@@ -1,4 +1,6 @@
-const { Skill } = require("../").models;
+import database from "../index.js";
+
+const { Skill } = models;
 
 
 const skills = [
@@ -15,4 +17,4 @@ const seed = async () => {
   console.log("Skill Seeding completed successfully");
 };
 
-module.exports = seed;
+export default seed;

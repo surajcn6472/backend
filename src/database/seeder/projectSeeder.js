@@ -1,4 +1,6 @@
-const { User, Project } = require("../").models;
+import database from "../index.js";
+
+const { User, Project } = models;
 
 const seed = async () => {
   const firstUser = await User.findOne();
@@ -23,4 +25,4 @@ const seed = async () => {
   console.log("Project Seeding completed successfully");
 };
 
-module.exports = seed;
+export default seed;

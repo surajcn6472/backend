@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 const userSchema = new mongoose.Schema({
   name: String,
@@ -19,4 +19,4 @@ userSchema.set("toObject", { virtuals: true });
 
 const User = mongoose.model("User", userSchema);
 
-module.exports = User;
+export default User;

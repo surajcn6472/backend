@@ -1,7 +1,9 @@
-const { body, param } = require("express-validator");
-const { Project } = require("../database").models;
+import { body, param } from "express-validator";
+import { models } from "../database/index.js";
 
-exports.createProjectValidation = [
+const { Project } = models;
+
+export const createProjectValidation = [
   body("name").trim().notEmpty().withMessage("Project name is required"),
 
   body("startDate")
@@ -35,7 +37,7 @@ exports.createProjectValidation = [
     .withMessage("Invalid project status"),
 ];
 
-exports.updateProjectValidation = [
+export const updateProjectValidation = [
   param("project_id")
     .isMongoId()
     .custom(async (value) => {

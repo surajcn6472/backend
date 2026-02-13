@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 const Profile = mongoose.model(
   "Profile",
@@ -17,4 +17,4 @@ const Profile = mongoose.model(
   }),
 );
 
-module.exports = Profile;
+export default Profile;

@@ -1,17 +1,21 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
+
+import Department from "./models/department.js";
+import Skill from "./models/skill.js";
+import User from "./models/user.js";
+import Profile from "./models/profile.js";
+import Project from "./models/project.js";
+import UserSkill from "./models/user_skill.js";
 mongoose.Promise = global.Promise;
 
-const db = {};
+// Named export
+export { mongoose };
 
-db.mongoose = mongoose;
-
-db.models = {
-  Department: require("./models/department"),
-  Skill: require("./models/skill"),
-  User: require("./models/user"),
-  Profile: require("./models/profile"),
-  Project: require("./models/project"),
-  UserSkill: require("./models/user_skill"),
+export const models = {
+  Department,
+  Skill,
+  User,
+  Profile,
+  Project,
+  UserSkill,
 };
-
-module.exports = db;

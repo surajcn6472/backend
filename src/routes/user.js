@@ -1,48 +1,55 @@
-const express = require("express");
-const router = express.Router();
-const userController = require("../controllers/userController");
-const projectController = require("../controllers/projectController");
-const {
+import express from "express";
+import userController from "../controllers/userController.js";
+import projectController from "../controllers/projectController.js";
+import {
   createProjectValidation,
   updateProfileValidation,
   updateProjectValidation,
   validationErr,
-} = require("../validators");
-const { multerUpload } = require("../lib");
-// const { authenticationMiddleware } = require("../middlewares");
-// router.use(authenticationMiddleware);
+} from "../validators/index.js";
+import { multerUpload } from "../lib/index.js";
 
-// middleware that is specific to this router
+const router = express.Router();
+
 const timeLog = (req, res, next) => {
   console.log("User Route Trigger Time: : ", Date.now());
   next();
 };
+
 router.use(timeLog);
 
 router.get("/profile", userController.getProfile);
+
 router.put(
   "/profile",
   multerUpload.single("image"),
   updateProfileValidation,
   validationErr,
-  userController.updateProfile,
+  userController.updateProfile
 );
 
 // user project routes
 router.get("/projects", projectController.getProjects);
+
 router.post(
   "/projects",
   createProjectValidation,
   validationErr,
-  projectController.createProject,
+  projectController.createProject
 );
+
 router.get("/projects/:project_id", projectController.showProject);
+
 router.put(
   "/projects/:project_id/update",
   updateProjectValidation,
   validationErr,
-  projectController.updateProject,
+  projectController.updateProject
 );
-router.delete("/projects/:project_id/delete", projectController.deleteProject);
 
-module.exports = router;
+router.delete(
+  "/projects/:project_id/delete",
+  projectController.deleteProject
+);
+
+export default router;

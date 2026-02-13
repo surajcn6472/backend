@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 const projectSchema = new mongoose.Schema({
   user_id: {
@@ -41,4 +41,4 @@ projectSchema.set("toObject", { virtuals: true });
 
 const Project = mongoose.model("Project", projectSchema);
 
-module.exports = Project;
+export default Project;

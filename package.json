@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Express + Handlebars + Tailwind CSS",
   "main": "app.js",
+  "type": "module",
   "scripts": {
     "start": "concurrently \"npm run watch:css\" \"npm run dev\"",
     "dev": "nodemon app.js",

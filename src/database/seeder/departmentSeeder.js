@@ -1,4 +1,6 @@
-const { Department } = require("../").models;
+import database from "../index.js";
+
+const { Department } = models;
 
 
 const departments = [
@@ -15,5 +17,5 @@ const seed = async () => {
   console.log("Department Seeding completed successfully");
 };
 
-module.exports = seed;
+export default seed;
 

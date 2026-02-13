@@ -1,7 +1,8 @@
-const jwt = require("jsonwebtoken");
+import jwt from "jsonwebtoken";
 
-module.exports = function guestOnly(req, res, next) {
+export default function guestOnly(req, res, next) {
   const authHeader = req.headers.authorization;
+
   if (!authHeader || !authHeader.startsWith("Bearer ")) {
     return next();
   }
@@ -14,4 +15,4 @@ module.exports = function guestOnly(req, res, next) {
   } catch (err) {
     return next();
   }
-};
+}

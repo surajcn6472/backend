@@ -1,18 +1,14 @@
-const express = require("express");
+import express from "express";
+import apiRoutes from "./api.js";
+import Admin from "./admin.js";
+
 const router = express.Router();
-const authRouter = require("./auth");
-const masterRouter = require("./master");
-const userRouter = require("./user");
-const publicRouter = require("./public");
-const { authenticationMiddleware } = require("../middlewares");
 
 router.get("/", (req, res) => {
   res.json({ msg: "Welcome to project management system." });
 });
 
-router.use("/auth", authRouter);
-router.use("/user", authenticationMiddleware, userRouter);
-router.use("/", publicRouter);
-router.use("/", masterRouter);
+router.use("/api/v1", apiRoutes);
+router.use("/admin", Admin);
 
-module.exports = router;
+export default router;

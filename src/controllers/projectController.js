@@ -1,8 +1,8 @@
-const Project = require("../database/models/project");
-var moment = require("moment");
-const User = require("../database/models/user");
+import Project from "../database/models/project.js";
+import moment from "moment";
+import User from "../database/models/user.js";
 
-exports.getProjects = async (req, res) => {
+const getProjects = async (req, res) => {
   const page = Math.max(parseInt(req.query.page) || 1, 1);
   const perPage = 2;
   const skip = (page - 1) * perPage;
@@ -20,7 +20,7 @@ exports.getProjects = async (req, res) => {
   const sortOrder = order === "desc" ? -1 : 1;
 
   // build filter
-  const filter = {user_id: req.user.id};
+  const filter = { user_id: req.user.id };
   if (status) {
     filter.status = status;
   }
@@ -73,7 +73,7 @@ exports.getProjects = async (req, res) => {
   });
 };
 
-exports.createProject = async (req, res) => {
+const createProject = async (req, res) => {
   const user = await User.findOne({ _id: req.user.id });
   const newProject = new Project({
     user_id: user._id,
@@ -92,7 +92,7 @@ exports.createProject = async (req, res) => {
   });
 };
 
-exports.showProject = async (req, res) => {
+const showProject = async (req, res) => {
   const project = await Project.findById(req.params.project_id);
 
   if (!project) {
@@ -117,7 +117,7 @@ exports.showProject = async (req, res) => {
   });
 };
 
-exports.updateProject = async (req, res) => {
+const updateProject = async (req, res) => {
   const project = await Project.findByIdAndUpdate(
     req.params.project_id,
     {
@@ -150,7 +150,7 @@ exports.updateProject = async (req, res) => {
   });
 };
 
-exports.deleteProject = async (req, res) => {
+const deleteProject = async (req, res) => {
   await Project.findByIdAndDelete(req.params.project_id).then(() => {
     res.status(200).send({
       status: "success",
@@ -159,7 +159,7 @@ exports.deleteProject = async (req, res) => {
   });
 };
 
-exports.getAllProjects = async (req, res) => {
+const getAllProjects = async (req, res) => {
   const page = Math.max(parseInt(req.query.page) || 1, 1);
   const perPage = 2;
   const skip = (page - 1) * perPage;
@@ -228,4 +228,13 @@ exports.getAllProjects = async (req, res) => {
       },
     })),
   });
+};
+
+export default {
+  getProjects,
+  createProject,
+  showProject,
+  updateProject,
+  deleteProject,
+  getAllProjects,
 };

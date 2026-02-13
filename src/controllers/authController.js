@@ -1,8 +1,9 @@
-const jwt = require("jsonwebtoken");
-const bcrypt = require("bcrypt");
-const User = require("../database/models/user");
+import jwt from "jsonwebtoken";
+import bcrypt from "bcrypt";
+import User from "../database/models/user.js";
 
-exports.me = (req, res) => {
+
+const me = (req, res) => {
   User.findOne({
     _id: req.user.id,
   })
@@ -27,7 +28,7 @@ exports.me = (req, res) => {
     });
 };
 
-exports.login = (req, res) => {
+const login = (req, res) => {
   const INVALID_CREDENTIALS_RESPONSE = {
     status: "error",
     msg: "Invalid credentials.",
@@ -73,7 +74,7 @@ exports.login = (req, res) => {
     });
 };
 
-exports.register = async (req, res) => {
+const register = async (req, res) => {
   try {
     const user = new User({
       name: req.body.name,
@@ -96,4 +97,10 @@ exports.register = async (req, res) => {
       msg: err.message,
     });
   }
+};
+
+export default {
+  me,
+  login,
+  register,
 };

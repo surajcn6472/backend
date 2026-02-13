@@ -1,5 +1,5 @@
-const multer = require("multer");
-const path = require("path");
+import multer from "multer";
+import path from "path";
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -17,7 +17,6 @@ const storage = multer.diskStorage({
 //     "image/webp",
 //     "application/pdf",
 //     "video/mp4"
-    
 //   ];
 
 //   if (allowedMimeTypes.includes(file.mimetype)) {
@@ -27,7 +26,7 @@ const storage = multer.diskStorage({
 //   }
 // };
 
-exports.multerUpload = multer({
+export const multerUpload = multer({
   storage,
   // fileFilter,
   limits: {

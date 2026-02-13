@@ -1,8 +1,9 @@
-const { body } = require("express-validator");
-const { User, Skill } = require("../database").models;
-const path = require("path");
+import { body } from "express-validator";
+import { models } from "../database/index.js";
+import path from "path";
+const { User, Skill } = models;
 
-exports.updateProfileValidation = [
+export const updateProfileValidation = [
   body("name").optional().trim().notEmpty().withMessage("Name cannot be empty"),
 
   body("email")
@@ -49,7 +50,9 @@ exports.updateProfileValidation = [
       const fileExt = path.extname(req.file.originalname).toLowerCase();
 
       if (!allowedExtensions.includes(fileExt)) {
-        throw new Error("Invalid image format. Allowed: jpg, jpeg, png, webp");
+        throw new Error(
+          "Invalid image format. Allowed: jpg, jpeg, png, webp"
+        );
       }
     }
 
