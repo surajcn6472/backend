@@ -5,8 +5,9 @@ import profileSeeder from "./profileSeeder.js";
 import projectSeeder from "./projectSeeder.js";
 import userSkillSeeder from "./userSkillSeeder.js";
 import mongoose from "mongoose";
+import dotenv from "dotenv";
+dotenv.config();
 
-require("dotenv").config();
 const executeSeeder = async () => {
   mongoose
     .connect(process.env.MONGO_URI)

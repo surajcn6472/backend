@@ -1,9 +1,12 @@
 import { models } from "../database/index.js";
 import fs from "fs";
-import path from "path";
 const { User, Profile, UserSkill } = models;
 import { mongoose } from "../database/index.js";
-import { __dirname } from "../lib/index.js";
+import path, { dirname } from "path";
+import { fileURLToPath } from "url";
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
 
 const getProfile = async (req, res) => {
   try {
@@ -164,7 +167,7 @@ const updateProfile = async (req, res) => {
   } catch (err) {
     return res.status(500).json({
       status: "error",
-      message: err.message,
+      msg: err.message,
     });
   }
 };

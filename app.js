@@ -2,10 +2,12 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import { mongoose } from "./src/database/index.js";
-
 import routes from "./src/routes/index.js";
-import path from "path";
-import { __filename, __dirname } from "./src/lib/index.js";
+
+import path, { dirname } from "path";
+import { fileURLToPath } from "url";
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 dotenv.config();
 const app = express();
@@ -37,6 +39,10 @@ app.use(
     origin: process.env.FRONTEND_URL,
   }),
 );
+
+console.log("helo")
+console.log(__dirname)
+console.log(__dirname)
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use("/public", express.static(path.join(__dirname, "public")));

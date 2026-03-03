@@ -1,4 +1,4 @@
-import database from "../index.js";
+import { models } from "../index.js";
 
 const { User, Project } = models;
 

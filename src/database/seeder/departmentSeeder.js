@@ -1,7 +1,5 @@
-import database from "../index.js";
-
+import { models } from "../index.js";
 const { Department } = models;
-
 
 const departments = [
   { name: "IT" },

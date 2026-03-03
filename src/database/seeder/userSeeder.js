@@ -1,4 +1,4 @@
-import database from "../index.js";
+import { models } from "../index.js";
 import bcrypt from "bcrypt";
 
 const { User } = models;

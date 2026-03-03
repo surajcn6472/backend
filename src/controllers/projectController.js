@@ -1,10 +1,11 @@
 import Project from "../database/models/project.js";
 import moment from "moment";
 import User from "../database/models/user.js";
+import config from "../lib/config.js";
 
 const getProjects = async (req, res) => {
   const page = Math.max(parseInt(req.query.page) || 1, 1);
-  const perPage = 2;
+  const perPage = config.perPage;
   const skip = (page - 1) * perPage;
 
   const {
@@ -118,17 +119,8 @@ const showProject = async (req, res) => {
 };
 
 const updateProject = async (req, res) => {
-  const project = await Project.findByIdAndUpdate(
-    req.params.project_id,
-    {
-      name: req.body.name,
-      startDate: req.body.startDate,
-      endDate: req.body.endDate,
-      rate: req.body.rate,
-      status: req.body.status,
-    },
-    { new: true }, // when true -> it returns the modified document rather than the original
-  );
+  const project = await Project.findById(req.params.project_id);
+
   if (!project) {
     return res.status(404).send({
       status: "error",
@@ -136,32 +128,56 @@ const updateProject = async (req, res) => {
     });
   }
 
-  res.status(200).send({
+  
+  if (project.user_id.toString() !== req.user.id) {
+    return res.status(403).send({
+      status: "error",
+      msg: "You do not have permission to update this project.",
+    });
+  }
+
+  project.name = req.body.name;
+  project.startDate = req.body.startDate;
+  project.endDate = req.body.endDate;
+  project.rate = req.body.rate;
+  project.status = req.body.status;
+
+  await project.save();
+
+  return res.status(200).json({
     status: "success",
     msg: "Project updated successfully",
-    data: {
-      id: project._id,
-      name: project.name,
-      startDate: moment(project.startDate).format("DD MMM, YYYY"),
-      endDate: moment(project.endDate).format("DD MMM, YYYY"),
-      rate: project.rate,
-      status: project.status,
-    },
   });
 };
 
 const deleteProject = async (req, res) => {
-  await Project.findByIdAndDelete(req.params.project_id).then(() => {
-    res.status(200).send({
-      status: "success",
-      msg: "Project deleted successfully",
+  const project = await Project.findById(req.params.project_id);
+
+  if (!project) {
+    return res.status(404).json({
+      status: "error",
+      msg: "Project not found",
     });
+  }
+
+  if (project.user_id.toString() !== req.user.id) {
+    return res.status(403).json({
+      status: "error",
+      msg: "You do not have permission to delete this project.",
+    });
+  }
+
+  await project.deleteOne();
+
+  return res.status(200).json({
+    status: "success",
+    msg: "Project deleted successfully",
   });
 };
 
 const getAllProjects = async (req, res) => {
   const page = Math.max(parseInt(req.query.page) || 1, 1);
-  const perPage = 2;
+  const perPage = config.perPage;
   const skip = (page - 1) * perPage;
 
   const {
